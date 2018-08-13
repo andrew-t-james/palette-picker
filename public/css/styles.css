@@ -1,4 +1,9 @@
 :root {
+  --color-one: #0d1b2a;
+  --color-two: #1b263b;
+  --color-three: #415a77;
+  --color-four: #7b9e87;
+  --color-five: #e0e1dd;
 }
 
 * {
@@ -22,4 +27,49 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   line-height: 1.5;
+}
+
+/*
+* HEADER SECTION
+*/
+.header {
+  margin: 3rem;
+  text-align: center;
+}
+
+/*
+* COLOR BLOCK SECTION
+*/
+.color-blocks {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.color-blocks__block {
+  height: 60rem;
+  width: 25rem;
+}
+
+/**
+* COLORS FOR INDVIDUAL BLOCKS
+*/
+.one {
+  background: var(--color-one);
+}
+
+.two {
+  background: var(--color-two);
+}
+
+.three {
+  background: var(--color-three);
+}
+
+.four {
+  background: var(--color-four);
+}
+
+.five {
+  background: var(--color-five);
 }
