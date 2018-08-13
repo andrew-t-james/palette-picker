@@ -37,18 +37,63 @@ body {
   text-align: center;
 }
 
-/*
+/**
 * COLOR BLOCK SECTION
 */
 .color-blocks {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 3rem;
   width: 100%;
 }
 
 .color-blocks__block {
   height: 60rem;
   width: 25rem;
+}
+
+/**
+* USER PALLETE
+*/
+.user-pallet__header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.user-section {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-section__pallet {
+  text-align: center;
+}
+
+.user-section__pallet--colors {
+  align-items: center;
+  border: 1px solid slateblue;
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+  width: 20rem;
+}
+
+.user-section__pallet--colors-block {
+  background: var(--color-one);
+  border: 2px solid whitesmoke;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+}
+
+.user-section__pallet--colors-block:not(:last-of-type) {
+  margin-right: -1.8rem;
+}
+
+.fa-trash-alt {
+  font-size: 2rem;
+  margin-left: 2rem;
 }
 
 /**
