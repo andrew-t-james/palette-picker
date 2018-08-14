@@ -4,6 +4,7 @@
   --color-three: #415a77;
   --color-four: #7b9e87;
   --color-five: #e0e1dd;
+  --border-color: whitesmoke;
 }
 
 * {
@@ -29,7 +30,7 @@ body {
   line-height: 1.5;
 }
 
-/*
+/**
 * HEADER SECTION
 */
 .header {
@@ -81,7 +82,7 @@ body {
 
 .user-section__pallet--colors-block {
   background: var(--color-one);
-  border: 2px solid whitesmoke;
+  border: 2px solid var(--border-color);
   border-radius: 50%;
   height: 4rem;
   width: 4rem;
