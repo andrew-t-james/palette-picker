@@ -1,8 +1,12 @@
 
 const getRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`; // 16777215 = #ffffff;
-const setColorPallet = async () => {
-  const response = await fetch('/api/v1/pallet');
-  const pallet = await response.json();
-  console.log(pallet);
+const randomButton = document.querySelector('.controls-section__button');
+const colorBlockList = document.querySelectorAll('.color-blocks__block');
+
+const setColorPallet = () => {
+  colorBlockList.forEach((block, index) => {
+    block.setAttribute('style', `--color-${index + 1}: ${getRandomHexColor()}`);
+  });
 };
-setColorPallet();
+
+randomButton.addEventListener('click', setColorPallet);
