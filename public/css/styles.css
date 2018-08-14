@@ -1,9 +1,10 @@
 :root {
-  --color-one: #0d1b2a;
-  --color-two: #1b263b;
-  --color-three: #415a77;
-  --color-four: #7b9e87;
-  --color-five: #e0e1dd;
+  --color-1: #0d1b2a;
+  --color-2: #1b263b;
+  --color-3: #415a77;
+  --color-4: #7b9e87;
+  --color-5: #e0e1dd;
+  --border-color: whitesmoke;
 }
 
 * {
@@ -29,7 +30,7 @@ body {
   line-height: 1.5;
 }
 
-/*
+/**
 * HEADER SECTION
 */
 .header {
@@ -48,8 +49,36 @@ body {
 }
 
 .color-blocks__block {
-  height: 60rem;
-  width: 25rem;
+  height: 50rem;
+  width: 22rem;
+}
+
+/**
+* CONTROLS SECTION
+*/
+.controls-section {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.controls-section__button {
+  background: var(--color-3);
+  border: none;
+  color: var(--border-color);
+  cursor: pointer;
+  margin-bottom: 1.6rem;
+  outline: inherit;
+  padding: 0;
+  font-size: 2rem;
+  border: 1px solid var(--color-three);
+  padding: 1rem 2rem;
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.controls-section__button:hover {
+  box-shadow: 2px 4px 8px 0 rgba(46, 61, 73, 0.2);
 }
 
 /**
@@ -80,8 +109,7 @@ body {
 }
 
 .user-section__pallet--colors-block {
-  background: var(--color-one);
-  border: 2px solid whitesmoke;
+  border: 2px solid var(--border-color);
   border-radius: 50%;
   height: 4rem;
   width: 4rem;
@@ -100,21 +128,21 @@ body {
 * COLORS FOR INDVIDUAL BLOCKS
 */
 .one {
-  background: var(--color-one);
+  background: var(--color-1);
 }
 
 .two {
-  background: var(--color-two);
+  background: var(--color-2);
 }
 
 .three {
-  background: var(--color-three);
+  background: var(--color-3);
 }
 
 .four {
-  background: var(--color-four);
+  background: var(--color-4);
 }
 
 .five {
-  background: var(--color-five);
+  background: var(--color-5);
 }
