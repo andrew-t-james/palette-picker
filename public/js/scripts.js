@@ -41,7 +41,6 @@ colorBlockSection.addEventListener('click', event => {
   const lockButton = event.target;
   const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
   const locked = palette.colors.find((hex, index) => hex[`color_${index + 1}`] === hexCode);
-  console.log(palette.colors);
   locked.saved = !locked.saved;
   if (event.target.tagName === 'I') {
     lockButton.classList.toggle('fa-lock-open');
