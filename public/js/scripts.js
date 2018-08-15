@@ -7,19 +7,19 @@ const pallet = {
   title: null,
   colors: [
     {
-      color: '#0d1b2a',
+      color1: '#0d1b2a',
       saved: false
     }, {
-      color: '#1b263b',
+      color2: '#1b263b',
       saved: false
     }, {
-      color: '#415a77',
+      color3: '#415a77',
       saved: false
     }, {
-      color: '#7b9e87',
+      color4: '#7b9e87',
       saved: false
     }, {
-      color: '#e0e1dd',
+      color5: '#e0e1dd',
       saved: false
     }
   ]
@@ -42,7 +42,6 @@ colorBlockSection.addEventListener('click', event => {
   const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
   const locked = pallet.colors.find(hex => hex.color === hexCode);
   locked.saved = !locked.saved;
-  console.log(pallet.colors);
   if (event.target.tagName === 'I') {
     lockButton.classList.toggle('fa-lock-open');
   }
