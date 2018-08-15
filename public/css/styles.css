@@ -43,7 +43,7 @@ body {
 */
 .color-blocks {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin-bottom: 3rem;
   width: 100%;
 }

@@ -4,22 +4,22 @@ const colorBlockSection = document.querySelector('.color-blocks');
 const randomButton = document.querySelector('.controls-section__button');
 const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`;
 const pallet = {
-  pallet: null,
+  title: null,
   colors: [
     {
-      color: null,
+      color: '#0d1b2a',
       saved: false
     }, {
-      color: null,
+      color: '#1b263b',
       saved: false
     }, {
-      color: null,
+      color: '#415a77',
       saved: false
     }, {
-      color: null,
+      color: '#7b9e87',
       saved: false
     }, {
-      color: null,
+      color: '#e0e1dd',
       saved: false
     }
   ]
