@@ -29,7 +29,7 @@ exports.seed = (knex, Promise) =>
               project_id: project[0]
             }
           ]))
-          .then(() => console.log('Seeding complete!'))
-          .catch(error => console.log(`Error seeding data: ${error}`))
-      ]) .catch(error => console.log(`Error seeding data: ${error}`)))
+          .then(() => console.log('Seeding finished!'))
+          .catch(error => console.log(`Error seeding: ${error}`))
+      ]).catch(error => console.log(`Error seeding: ${error}`)))
     );

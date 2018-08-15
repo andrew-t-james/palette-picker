@@ -7,19 +7,19 @@ const pallet = {
   title: null,
   colors: [
     {
-      color1: '#0d1b2a',
+      'color_1': '#0d1b2a',
       saved: false
     }, {
-      color2: '#1b263b',
+      'color_2': '#1b263b',
       saved: false
     }, {
-      color3: '#415a77',
+      color_3: '#415a77',
       saved: false
     }, {
-      color4: '#7b9e87',
+      'color_4': '#7b9e87',
       saved: false
     }, {
-      color5: '#e0e1dd',
+      'color_5': '#e0e1dd',
       saved: false
     }
   ]
