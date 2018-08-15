@@ -54,6 +54,11 @@ body {
   position: relative;
 }
 
+.color-blocks__hex-color {
+  text-align: center;
+  color: var(--border-color);
+}
+
 .fa-lock,
 .fa-lock-open {
   font-size: 2rem;

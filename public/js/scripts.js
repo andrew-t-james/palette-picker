@@ -1,24 +1,25 @@
 const colorBlockList = document.querySelectorAll('.color-blocks__block');
+const hexColorValue = document.querySelectorAll('.color-blocks__hex-color');
 const colorBlockSection = document.querySelector('.color-blocks');
 const randomButton = document.querySelector('.controls-section__button');
-const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`; // 16777215 = #ffffff;
+const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`;
 const pallet = {
   pallet: null,
   colors: [
     {
-      color: '#0d1b2a',
+      color: null,
       saved: false
     }, {
-      color: '#1b263b',
+      color: null,
       saved: false
     }, {
-      color: '#415a77',
+      color: null,
       saved: false
     }, {
-      color: '#7b9e87',
+      color: null,
       saved: false
     }, {
-      color: '#e0e1dd',
+      color: null,
       saved: false
     }
   ]
@@ -26,26 +27,25 @@ const pallet = {
 
 const setRandomColorPallet = () => {
   colorBlockList.forEach((block, index) => {
-    const newHexColor =  getRandomHexColor();
-    pallet.colors[index].color = newHexColor;
-    console.log(newHexColor);
-    block.setAttribute('style', `--color-${index + 1}: ${newHexColor}`);
+    if (!pallet.colors[index].saved) {
+      const newHexColor = getRandomHexColor();
+      pallet.colors[index].color = newHexColor;
+      hexColorValue[index].innerText = newHexColor;
+      block.setAttribute('style', `--color-${index + 1}: ${newHexColor}`);
+    }
   });
 };
 
-colorBlockSection.addEventListener('click', event => {
-  const parentBackgroundColor= window.getComputedStyle(event.target.parentNode).backgroundColor;
 
+colorBlockSection.addEventListener('click', event => {
+  const lockButton = event.target;
+  const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
+  const locked = pallet.colors.find(hex => hex.color === hexCode);
+  locked.saved = !locked.saved;
+  console.log(pallet.colors);
   if (event.target.tagName === 'I') {
-    console.log(parentBackgroundColor);
-    event.target.classList.toggle('fa-lock-open');
+    lockButton.classList.toggle('fa-lock-open');
   }
 });
 
 randomButton.addEventListener('click', setRandomColorPallet);
-
-// window.addEventListener('load', () => {
-//   colorBlockList.forEach((block, index) => {
-//     block.setAttribute('style', `--color-${index + 1}: ${pallet.colors[index].color}`);
-//   });
-// });
