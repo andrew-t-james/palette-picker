@@ -1,36 +1,36 @@
 const projects = [{
   name: 'My First Project',
   palettes: [{
-    name: 'Palette One',
-    color_1: '#FFFFFF',
-    color_2: '#FFFFFF',
-    color_3: '#FFFFFF',
-    color_4: '#FFFFFF',
-    color_5: '#FFFFFF'
+    name: 'Dark Colors',
+    color_1: '#0d1b2a',
+    color_2: '#1b263b',
+    color_3: '#415a77',
+    color_4: '#7b9e87',
+    color_5: '#7b9e87'
   }, {
-    name: 'Palette Two',
-    color_1: '#000000',
-    color_2: '#000000',
-    color_3: '#000000',
-    color_4: '#000000',
-    color_5: '#000000'
+    name: 'Light Colors',
+    color_1: '#2E294E',
+    color_2: '#EFBCD5',
+    color_3: '#BE97C6',
+    color_4: '#8661C1',
+    color_5: '#4B5267'
   }]
 }, {
   name: 'My Second Project',
   palettes: [{
-    name: 'Palette One',
-    color_1: '#000000',
-    color_2: '#000000',
-    color_3: '#000000',
-    color_4: '#000000',
-    color_5: '#000000'
+    name: 'Blues',
+    color_1: '#DDE0BD',
+    color_2: '#D0D1AC',
+    color_3: '#B6A39E',
+    color_4: '#948B89',
+    color_5: '#726E75'
   }, {
-    name: 'Palette Two',
-    color_1: '#FFFFFF',
-    color_2: '#FFFFFF',
-    color_3: '#FFFFFF',
-    color_4: '#FFFFFF',
-    color_5: '#FFFFFF'
+    name: 'Greens',
+    color_1: '#D7DAE5',
+    color_2: '#B9CDDA',
+    color_3: '#A6D8D4',
+    color_4: '#8EAF9D',
+    color_5: '#6B7F82'
   }]
 }];
 

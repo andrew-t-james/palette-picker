@@ -1,6 +1,3 @@
-const colorBlockSection = document.querySelector('.color-blocks');
-const randomButton = document.querySelector('.controls-section__button');
-const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`;
 const palette = {
   title: null,
   colors: [
@@ -24,6 +21,7 @@ const palette = {
 };
 
 const setRandomColorPallet = () => {
+  const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`;
   const colorBlockList = document.querySelectorAll('.color-blocks__block');
   const hexColorValue = document.querySelectorAll('.color-blocks__hex-color');
   colorBlockList.forEach((block, index) => {
@@ -61,27 +59,50 @@ const getPalettes = async () => {
 const projectsWithPalettes = async () => {
   const projects = await getProjects();
   const colorPalettes = await getPalettes();
-  const combinedProjectWithPalette = [];
-  projects.forEach(project => {
-    colorPalettes.forEach(colorPalette => {
-      // console.log(project.name, palette.project_id);
-      if (project.id === colorPalette.project_id) {
-        combinedProjectWithPalette.push({
-          title: project.name,
-          name: colorPalette.name,
-          color_1: colorPalette.color_1,
-          color_2: colorPalette.color_2,
-          color_3: colorPalette.color_3,
-          color_4: colorPalette.color_4,
-          color_5: colorPalette.color_5
-        });
-      }
-    });
-  });
-  console.log(combinedProjectWithPalette);
+  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, curPalette) => {
+
+    const project = projects.find(project => project.id === curPalette.project_id);
+    const paletteByProject = colorPalettes.filter(colorPalette => colorPalette.project_id === project.id);
+
+    if (project.id === curPalette.project_id) {
+      combined[project.name] = paletteByProject;
+    }
+    return combined;
+  }, {});
+
+  return combinedProjectsAndPalettes;
 };
 
-projectsWithPalettes();
+const createMarkUpForProjectsWithPalettes = async () => {
+  const paletteSection = document.querySelector('.user-palettes');
+  const projectList = await projectsWithPalettes();
+  const projectListKeys = Object.keys(projectList);
+  const markupForUserPalette = (title, paletteList) => `
+  <article class="user-section__palette">
+    <h3 class="user-section__palette--heading">${title}</h3>
+      ${paletteList.map(paletteItem => paletteMarkup(paletteItem)).join('')}
+  </article>
+  `;
 
-colorBlockSection.addEventListener('click', lockColor);
-randomButton.addEventListener('click', setRandomColorPallet);
+  const paletteMarkup = newPalette => `
+  <div class="user-section__palette--colors">
+      <h4 class="user-section__palette--title">${newPalette.name}</h4>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_1}"></div>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_3}"></div>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_4}"></div>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_5}"></div>
+      <i class="fas fa-trash-alt"></i>
+    </div>
+    `;
+
+  projectListKeys.forEach((project, index) => {
+    const userPalette = projectList[project];
+    paletteSection.innerHTML += markupForUserPalette(project, userPalette);
+  });
+};
+
+createMarkUpForProjectsWithPalettes();
+
+document.querySelector('.color-blocks').addEventListener('click', lockColor);
+document.querySelector('.controls-section__button').addEventListener('click', setRandomColorPallet);
