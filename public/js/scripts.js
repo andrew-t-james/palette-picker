@@ -7,19 +7,19 @@ const palette = {
   title: null,
   colors: [
     {
-      'color_1': '#0d1b2a',
+      color_1: '#0d1b2a',
       saved: false
     }, {
-      'color_2': '#1b263b',
+      color_2: '#1b263b',
       saved: false
     }, {
       color_3: '#415a77',
       saved: false
     }, {
-      'color_4': '#7b9e87',
+      color_4: '#7b9e87',
       saved: false
     }, {
-      'color_5': '#e0e1dd',
+      color_5: '#e0e1dd',
       saved: false
     }
   ]
@@ -36,8 +36,7 @@ const setRandomColorPallet = () => {
   });
 };
 
-
-colorBlockSection.addEventListener('click', event => {
+const lockColor = event => {
   const lockButton = event.target;
   const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
   const locked = palette.colors.find((hex, index) => hex[`color_${index + 1}`] === hexCode);
@@ -45,6 +44,24 @@ colorBlockSection.addEventListener('click', event => {
   if (event.target.tagName === 'I') {
     lockButton.classList.toggle('fa-lock-open');
   }
-});
+};
 
+const getProjects = async () => {
+  const response = await fetch('/api/v1/projects');
+  const projects = await response.json();
+  console.log(projects);
+  return projects;
+};
+
+const getPalettes = async () => {
+  const response = await fetch('/api/v1/palettes');
+  const palettes = await response.json();
+  console.log(palettes);
+  return palettes;
+};
+
+getProjects();
+getPalettes();
+
+colorBlockSection.addEventListener('click', lockColor);
 randomButton.addEventListener('click', setRandomColorPallet);

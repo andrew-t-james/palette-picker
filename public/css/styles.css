@@ -50,25 +50,25 @@ body {
 
 .color-blocks__block {
   height: 50rem;
-  width: 22rem;
   position: relative;
+  width: 22rem;
 }
 
 .color-blocks__hex-color {
-  text-align: center;
   color: var(--border-color);
+  text-align: center;
 }
 
 .fa-lock,
 .fa-lock-open {
-  font-size: 2rem;
-  position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color: var(--border-color);
-  transition: opacity 0.2s ease-in-out;
   cursor: pointer;
+  font-size: 2rem;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .fa-lock-open {
@@ -90,17 +90,17 @@ body {
 .controls-section__button {
   background: var(--color-3);
   border: none;
+  border: 1px solid var(--color-three);
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   color: var(--border-color);
   cursor: pointer;
+  font-size: 2rem;
   margin-bottom: 1.6rem;
   outline: inherit;
   padding: 0;
-  font-size: 2rem;
-  border: 1px solid var(--color-three);
   padding: 1rem 2rem;
-  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
-  transition: all 0.3s ease;
   text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .controls-section__button:hover {
@@ -110,7 +110,7 @@ body {
 /**
 * USER PALLETE
 */
-.user-pallet__header {
+.user-palette__header {
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -118,30 +118,43 @@ body {
 .user-section {
   border: 1px solid red;
   display: flex;
-  flex-wrap: wrap;
-}
-
-.user-section__pallet {
+  flex-direction: column;
   text-align: center;
 }
 
-.user-section__pallet--colors {
+.user-palettes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-section__palette {
   align-items: center;
   border: 1px solid slateblue;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin: 2rem;
-  width: 20rem;
 }
 
-.user-section__pallet--colors-block {
+.user-section__palette--colors {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+  width: 100%;
+}
+
+.user-section__palette--title {
+  margin-right: 3rem;
+}
+
+.user-section__palette--colors-block {
   border: 2px solid var(--border-color);
   border-radius: 50%;
   height: 4rem;
   width: 4rem;
 }
 
-.user-section__pallet--colors-block:not(:last-of-type) {
+.user-section__palette--colors-block:not(:last-of-type) {
   margin-right: -1.8rem;
 }
 
