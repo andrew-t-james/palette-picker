@@ -2,7 +2,7 @@ const projects = [{
   name: 'Dark Tones',
   palettes: [{
     name: 'Dark Colors',
-    color_1: '#0d1b2a',
+    color_1: '#FFFFFF',
     color_2: '#1b263b',
     color_3: '#415a77',
     color_4: '#7b9e87',

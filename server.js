@@ -38,3 +38,5 @@ app.get('/api/v1/palettes', (req, res) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
+
+module.exports = app;

@@ -75,6 +75,7 @@ const projectsWithPalettes = async () => {
 
 const createMarkUpForProjectsWithPalettes = async () => {
   const paletteSection = document.querySelector('.user-palettes');
+  const select = document.querySelector('.select');
   const projectList = await projectsWithPalettes();
   const projectListKeys = Object.keys(projectList);
   const markupForUserPalette = (title, paletteList) => `
@@ -96,8 +97,11 @@ const createMarkUpForProjectsWithPalettes = async () => {
     </div>
     `;
 
+  const sectionOption = title => `<option value=${title}>${title}</option>`;
+
   projectListKeys.forEach((project, index) => {
     const userPalette = projectList[project];
+    select.innerHTML += sectionOption(project);
     paletteSection.innerHTML += markupForUserPalette(project, userPalette);
   });
 };
