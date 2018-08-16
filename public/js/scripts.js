@@ -59,12 +59,12 @@ const getPalettes = async () => {
 const projectsWithPalettes = async () => {
   const projects = await getProjects();
   const colorPalettes = await getPalettes();
-  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, curPalette) => {
+  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, currPalette) => {
 
-    const project = projects.find(project => project.id === curPalette.project_id);
+    const project = projects.find(currProject => currProject.id === currPalette.project_id);
     const paletteByProject = colorPalettes.filter(colorPalette => colorPalette.project_id === project.id);
 
-    if (project.id === curPalette.project_id) {
+    if (project.id === currPalette.project_id) {
       combined[project.name] = paletteByProject;
     }
     return combined;
@@ -87,7 +87,7 @@ const createMarkUpForProjectsWithPalettes = async () => {
   const paletteMarkup = newPalette => `
   <div class="user-section__palette--colors">
       <h4 class="user-section__palette--title">${newPalette.name}</h4>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_1}"></div>
+      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
       <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
       <div class="user-section__palette--colors-block" style="background: ${newPalette.color_3}"></div>
       <div class="user-section__palette--colors-block" style="background: ${newPalette.color_4}"></div>
