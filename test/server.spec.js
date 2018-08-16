@@ -65,4 +65,14 @@ describe('Client Routes', () => {
         done();
       });
   });
+
+  it('Should return a 404 when a route does not exist', () =>
+    chai.request(server)
+      .get('/api/v1/non-existent-route')
+      .then(res=> {
+        res.should.have.status(404);
+      })
+      .catch(error => {
+        throw error;
+      }));
 });
