@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -8,7 +9,10 @@ const database = require('knex')(configuration);
 
 
 app.set('port', process.env.PORT || 3000);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
 app.locals.title = 'Pallet Picker';
 
 app.get('/', (req, res) => {
