@@ -39,12 +39,12 @@ app.get('/api/v1/palettes', (req, res) => {
     });
 });
 
-app.post('/api/v1/projects', (request, response) => {
+app.post('/api/v1/projects', (request, res) => {
   const projectTitle = request.body;
 
   for (const requiredParameter of ['name']) {
     if (!projectTitle[requiredParameter]) {
-      return response.status(422).json({
+      return res.status(422).json({
         error: `You are missing the required parameter ${requiredParameter}`
       });
     }
@@ -52,11 +52,24 @@ app.post('/api/v1/projects', (request, response) => {
 
   database('projects').insert(projectTitle, 'id')
     .then(newProject =>
-      response.status(201).json({ id: newProject[0] })
+      res.status(201).json({ id: newProject[0] })
     )
     .catch(error =>
-      response.status(500).json({ error })
+      res.status(500).json({ error })
     );
+});
+
+app.delete('/api/v1/palettes/:id', (request, res) => {
+  const { id } = request.body;
+
+  database('palettes').where('id', id).del()
+    .then(foundId => {
+      if (!foundId) {
+        return res.status(422).json({ error: 'That palette does not exist.' });
+      }
+      return res.sendStatus(204);
+    })
+    .catch((error) => res.status(500).json({ error }));
 });
 
 app.listen(app.get('port'), () => {

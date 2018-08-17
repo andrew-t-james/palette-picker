@@ -80,7 +80,7 @@ const createMarkUpForProjectsWithPalettes = async () => {
   `;
 
   const paletteMarkup = newPalette => `
-  <div class="user-section__palette--colors">
+  <div class="user-section__palette--colors" id="${newPalette.id}">
       <h4 class="user-section__palette--title">${newPalette.name}</h4>
       <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
       <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
@@ -118,8 +118,24 @@ const postNewProject = async event => {
   }
 };
 
+const deletePalette = async event => {
+  const { id } = event.target.parentNode;
+
+  const options = {
+    method: 'DELETE',
+    body: JSON.stringify({ id }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  await fetch('/api/v1/palettes/:paletteID', options);
+  createMarkUpForProjectsWithPalettes();
+  console.log(event.target.parentNode.id);
+};
+
 document.querySelector('.color-blocks').addEventListener('click', lockColor);
 document.querySelector('.controls-section__button').addEventListener('click', setRandomColorPallet);
 document.querySelector('.controls-section__from').addEventListener('submit', postNewProject);
+document.querySelector('.user-palettes').addEventListener('click', deletePalette);
 
 createMarkUpForProjectsWithPalettes();
