@@ -91,4 +91,35 @@ describe('API Routes', () => {
         });
     });
   });
+
+  describe('POST to /api/v1/projects', () => {
+    it('Should create a new project', () =>
+      chai.request(server)
+        .post('/api/v1/projects')
+        .send({
+          name: 'New Project'
+        })
+        .then(res => {
+          res.should.have.status(201);
+          res.body.should.have.property('id');
+          res.body.id.should.equal(3);
+          res.body.should.be.a('object');
+        })
+        .catch(error => {
+          throw error;
+        }));
+
+    it('Should not project', () => chai.request(server)
+      .post('/api/v1/projects')
+      .send({
+        name: null
+      })
+      .then(response => {
+        response.should.have.status(422);
+        response.error.text.should.equal('{"error":"You are missing the required parameter name"}');
+      })
+      .catch(error => {
+        throw error;
+      }));
+  });
 });
