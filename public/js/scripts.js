@@ -1,20 +1,19 @@
 const palette = {
-  title: null,
   colors: [
     {
-      color_1: '#0d1b2a',
+      color_1: null,
       saved: false
     }, {
-      color_2: '#1b263b',
+      color_2: null,
       saved: false
     }, {
-      color_3: '#415a77',
+      color_3: null,
       saved: false
     }, {
-      color_4: '#7b9e87',
+      color_4: null,
       saved: false
     }, {
-      color_5: '#e0e1dd',
+      color_5: null,
       saved: false
     }
   ]
@@ -59,7 +58,7 @@ const getPalettes = async () => {
 const projectsWithPalettes = async () => {
   const projects = await getProjects();
   const colorPalettes = await getPalettes();
-  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, currPalette) => {
+  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, currPalette, index) => {
 
     const project = projects.find(currProject => currProject.id === currPalette.project_id);
     const paletteByProject = colorPalettes.filter(colorPalette => colorPalette.project_id === project.id);
@@ -67,6 +66,7 @@ const projectsWithPalettes = async () => {
     if (project.id === currPalette.project_id) {
       combined[project.name] = paletteByProject;
     }
+
     return combined;
   }, {});
 
@@ -78,6 +78,7 @@ const createMarkUpForProjectsWithPalettes = async () => {
   const select = document.querySelector('.select');
   const projectList = await projectsWithPalettes();
   const projectListKeys = Object.keys(projectList);
+
   const markupForUserPalette = (title, paletteList) => `
   <article class="user-section__palette">
     <h3 class="user-section__palette--heading">${title}</h3>
@@ -106,7 +107,26 @@ const createMarkUpForProjectsWithPalettes = async () => {
   });
 };
 
-createMarkUpForProjectsWithPalettes();
+const postNewProject = async event => {
+  event.preventDefault();
+  const projectTitle = document.querySelector('.project-title');
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({ name: projectTitle.value }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  try {
+    await fetch('api/v1/projects', options);
+    projectTitle.value = '';
+  } catch (error) {
+    return Error(`Error saving project: ${error}`);
+  }
+};
 
 document.querySelector('.color-blocks').addEventListener('click', lockColor);
 document.querySelector('.controls-section__button').addEventListener('click', setRandomColorPallet);
+document.querySelector('.controls-section__from').addEventListener('submit', postNewProject);
+
+createMarkUpForProjectsWithPalettes();
