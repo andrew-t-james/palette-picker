@@ -1,19 +1,19 @@
 const palette = {
   colors: [
     {
-      color_1: null,
+      color_1: '#0d1b2a',
       saved: false
     }, {
-      color_2: null,
+      color_2: '#1b263b',
       saved: false
     }, {
-      color_3: null,
+      color_3: '#415a77',
       saved: false
     }, {
-      color_4: null,
+      color_4: '#7b9e87',
       saved: false
     }, {
-      color_5: null,
+      color_5: '#e0e1dd',
       saved: false
     }
   ]
@@ -91,10 +91,10 @@ const createMarkUpForProjectsWithPalettes = async () => {
     </div>
     `;
 
-  const sectionOption = title => `<option value=${title}>${title}</option>`;
+  const sectionOption = project => `<option id=${project.id}>${project.name}</option>`;
 
   projects.forEach((project, index) => {
-    select.innerHTML += sectionOption(project.name);
+    select.innerHTML += sectionOption(project);
     paletteSection.innerHTML += markupForUserPalette(project);
   });
 };
@@ -118,9 +118,54 @@ const postNewProject = async event => {
   }
 };
 
+const createPalette = async event => {
+  event.preventDefault();
+  const optionElement = document.querySelector('.select');
+  const paletteTitle = document.querySelector('.palette-title');
+  const { id } = optionElement[optionElement.selectedIndex];
+  const paletteColors = palette.colors.reduce((newColor, color, index) => {
+    if (!newColor[color[`color_${index + 1}`]]) {
+      newColor[`color_${index+1}`] = color[`color_${index + 1}`];
+    }
+    return newColor;
+  }, {});
+  const newPalette = {
+    ...paletteColors,
+    project_id: Number(id),
+    name: paletteTitle.value
+  };
+
+  const savedColors = palette.colors.every(color => color.saved);
+
+  if (!savedColors) {
+    showErrorMessage('Please select 5 colors');
+    return;
+  }
+
+  if (paletteTitle.value === '') {
+    showErrorMessage('Please add a title to your Palette');
+    return;
+  }
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({ ...newPalette }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    await fetch('/api/v1/palette', options);
+    paletteTitle.value = '';
+    createMarkUpForProjectsWithPalettes();
+  } catch (error) {
+    return Error(`Error saving project: ${error}`);
+  }
+};
+
 const deletePalette = async event => {
   const { id } = event.target.parentNode;
-
   const options = {
     method: 'DELETE',
     body: JSON.stringify({ id }),
@@ -128,14 +173,23 @@ const deletePalette = async event => {
       'Content-Type': 'application/json'
     }
   };
-  await fetch('/api/v1/palettes/:paletteID', options);
-  createMarkUpForProjectsWithPalettes();
-  console.log(event.target.parentNode.id);
+  if (event.target.tagName === 'I') {
+    await fetch('/api/v1/palettes', options);
+    createMarkUpForProjectsWithPalettes();
+  }
+};
+
+const showErrorMessage = message => {
+  const snackBar = document.getElementById("snack-bar");
+
+  snackBar.className = "show";
+  snackBar.innerText = message;
+  setTimeout(() => { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
 };
 
 document.querySelector('.color-blocks').addEventListener('click', lockColor);
 document.querySelector('.controls-section__button').addEventListener('click', setRandomColorPallet);
 document.querySelector('.controls-section__from').addEventListener('submit', postNewProject);
 document.querySelector('.user-palettes').addEventListener('click', deletePalette);
-
+document.querySelector('.save-palette-button').addEventListener('click', createPalette);
 createMarkUpForProjectsWithPalettes();

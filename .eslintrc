@@ -20,6 +20,7 @@
     "mocha/no-exclusive-tests": "error",
     "handle-callback-err": "off",
     "no-restricted-syntax": "off",
+    "no-param-reassign": "off",
     "no-unused-expressions": "off",
     "no-debugger": "off",
     "no-return-assign": "off",

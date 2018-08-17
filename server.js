@@ -39,8 +39,8 @@ app.get('/api/v1/palettes', (req, res) => {
     });
 });
 
-app.post('/api/v1/projects', (request, res) => {
-  const projectTitle = request.body;
+app.post('/api/v1/projects', (req, res) => {
+  const projectTitle = req.body;
 
   for (const requiredParameter of ['name']) {
     if (!projectTitle[requiredParameter]) {
@@ -59,8 +59,25 @@ app.post('/api/v1/projects', (request, res) => {
     );
 });
 
-app.delete('/api/v1/palettes/:id', (request, res) => {
-  const { id } = request.body;
+app.post('/api/v1/palette', (req, res) => {
+  const palette = {
+    ...req.body
+  };
+
+  for (const requiredParameter of ['project_id', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'name']) {
+    if (!palette[requiredParameter]) {
+      return res.status(422).json({
+        error: `You are missing the ${requiredParameter} property.`
+      });
+    }
+  }
+  database('palettes').insert(palette, '*')
+    .then(newPalette => res.status(201).json(newPalette))
+    .catch(error => res.status(500).json({ error }));
+});
+
+app.delete('/api/v1/palettes', (req, res) => {
+  const { id } = req.body;
 
   database('palettes').where('id', id).del()
     .then(foundId => {

@@ -108,7 +108,7 @@ describe('API Routes', () => {
         throw error;
       }));
 
-    it('Should not project', () => chai.request(server)
+    it('Should not create a new project', () => chai.request(server)
       .post('/api/v1/projects')
       .send({
         name: null
@@ -122,15 +122,15 @@ describe('API Routes', () => {
       }));
   });
 
-  describe('DELETE /api/v1/palettes/:id', done => {
+  describe('DELETE /api/v1/palettes', done => {
     it('should delete a palette from the database', done => {
       chai.request(server)
-        .delete('/api/v1/palettes/2')
+        .delete('/api/v1/palettes')
         .send({
           id: 2
         })
-        .then(response => {
-          response.should.have.status(204);
+        .then(res => {
+          res.should.have.status(204);
           done();
         })
         .catch(error => {
@@ -140,12 +140,51 @@ describe('API Routes', () => {
 
     it('return 422 if palette id does not exist', done => {
       chai.request(server)
-        .delete('/api/v1/palettes/6')
+        .delete('/api/v1/palettes')
         .send({
           id: 6
         })
-        .then((response) => {
-          response.should.have.status(422);
+        .then(res => {
+          res.should.have.status(422);
+          done();
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  });
+  describe('POST to /api/v1/palette', () => {
+    it('Should create a new palette', () => chai.request(server)
+      .post('/api/v1/palette')
+      .send({
+        name: 'New Fire',
+        color_1: "#D7DAE5",
+        color_2: "#B9CDDA",
+        color_3: "#A6D8D4",
+        color_4: "#8EAF9D",
+        color_5: "#6B7F82",
+        project_id: 2
+      })
+      .then(res => {
+        res.should.have.status(201);
+      })
+      .catch(error => {
+        throw error;
+      }));
+
+    it('return 422 if palette id does not exist', done => {
+      chai.request(server)
+        .post('/api/v1/palette')
+        .send({
+          name: 'New Fire',
+          color_1: "#D7DAE5",
+          color_2: "#B9CDDA",
+          color_3: "#A6D8D4",
+          color_4: "#8EAF9D",
+          color_5: "#6B7F82"
+        })
+        .then(res => {
+          res.should.have.status(422);
           done();
         })
         .catch((error) => {
