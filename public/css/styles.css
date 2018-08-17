@@ -30,6 +30,38 @@ body {
   line-height: 1.5;
 }
 
+input {
+  height: 3rem;
+  width: 14rem;
+  padding-left: 1rem;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.small-btn {
+  background: var(--color-4);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
+  color: var(--border-color);
+  cursor: pointer;
+  font-size: 1.3rem;
+  margin-bottom: 1.6rem;
+  outline: inherit;
+  padding: 0;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
 /**
 * HEADER SECTION
 */
@@ -56,6 +88,8 @@ body {
 
 .color-blocks__hex-color {
   color: var(--border-color);
+  font-size: 1.9rem;
+  padding-top: 1rem;
   text-align: center;
 }
 
@@ -83,13 +117,13 @@ body {
 * CONTROLS SECTION
 */
 .controls-section {
-  margin-bottom: 3rem;
   text-align: center;
 }
 
 .controls-section__button {
   background: var(--color-3);
   border: none;
+  border-radius: 3px;
   box-shadow: 8px 10px 20px 0 rgba(46, 61, 73, 0.15);
   color: var(--border-color);
   cursor: pointer;
@@ -104,6 +138,14 @@ body {
 
 .controls-section__button:hover {
   box-shadow: 2px 4px 8px 0 rgba(46, 61, 73, 0.2);
+}
+
+.controls-section__form-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 906px;
+  margin: 0 auto;
 }
 
 /**
@@ -121,8 +163,10 @@ body {
 }
 
 .user-palettes {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .user-section__header {
@@ -133,7 +177,7 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 16rem;
   min-width: 27rem;
   position: relative;
@@ -176,6 +220,10 @@ body {
   font-size: 1.8rem;
   position: absolute;
   right: 1rem;
+}
+
+.project-title {
+  width: 27rem;
 }
 
 /**

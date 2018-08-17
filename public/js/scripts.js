@@ -31,6 +31,7 @@ const setRandomColorPallet = () => {
       block.setAttribute('style', `--color-${index + 1}: ${newHexColor}`);
     }
   });
+  console.log(palette);
 };
 
 const lockColor = event => {

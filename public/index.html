@@ -38,15 +38,17 @@
     </section>
     <section class="controls-section">
       <button class="controls-section__button">Generate Colors</button>
-      <form class="controls-section__from">
-        <input required class="project-title" type="text" name="project" placeholder="Project Title">
-        <input type="submit" value="submit">
-      </form>
-      <form>
-        <select name="palette" class="select"></select>
-        <input class="palette-title" type="text" name="palette" placeholder="Palette Title">
-        <button class="save-palette-button">Save Palette</button>
-      </form>
+      <div class="controls-section__form-container">
+        <form class="controls-section__from">
+          <input required class="project-title" type="text" name="project" placeholder="Project Title">
+          <button class="small-btn">Submit</button>
+        </form>
+        <form>
+          <select name="palette" class="select"></select>
+          <input class="palette-title" type="text" name="palette" placeholder="New Palette Title">
+          <button class="save-palette-button small-btn">Save Palette</button>
+        </form>
+      </div>
     </section>
     <section class="user-section">
       <header class="user-section__header">
