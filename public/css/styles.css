@@ -133,6 +133,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 16rem;
+  min-width: 27rem;
+  position: relative;
+}
+
+.user-section__palette--heading {
+  position: absolute;
+  top: 0;
 }
 
 .user-section__palette--colors {
@@ -144,7 +152,10 @@ body {
 }
 
 .user-section__palette--title {
+  left: 2rem;
   margin-right: 1rem;
+  max-width: 4rem;
+  position: absolute;
 }
 
 .user-section__palette--colors-block {
@@ -160,7 +171,9 @@ body {
 
 .fa-trash-alt {
   font-size: 2rem;
-  margin-left: 2rem;
+  font-size: 1.8rem;
+  position: absolute;
+  right: 1rem;
 }
 
 /**

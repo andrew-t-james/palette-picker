@@ -55,34 +55,27 @@ const getPalettes = async () => {
   return palettes;
 };
 
-const projectsWithPalettes = async () => {
-  const projects = await getProjects();
-  const colorPalettes = await getPalettes();
-  const combinedProjectsAndPalettes = colorPalettes.reduce((combined, currPalette, index) => {
-
-    const project = projects.find(currProject => currProject.id === currPalette.project_id);
-    const paletteByProject = colorPalettes.filter(colorPalette => colorPalette.project_id === project.id);
-
-    if (project.id === currPalette.project_id) {
-      combined[project.name] = paletteByProject;
-    }
-
-    return combined;
-  }, {});
-
-  return combinedProjectsAndPalettes;
+const clearAllChildNodes = node => {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
 };
 
 const createMarkUpForProjectsWithPalettes = async () => {
+  const projects = await getProjects();
+  const colorPalettes = await getPalettes();
   const paletteSection = document.querySelector('.user-palettes');
   const select = document.querySelector('.select');
-  const projectList = await projectsWithPalettes();
-  const projectListKeys = Object.keys(projectList);
+  clearAllChildNodes(paletteSection);
+  clearAllChildNodes(select);
 
-  const markupForUserPalette = (title, paletteList) => `
+  const markupForUserPalette = project => `
   <article class="user-section__palette">
-    <h3 class="user-section__palette--heading">${title}</h3>
-      ${paletteList.map(paletteItem => paletteMarkup(paletteItem)).join('')}
+    <h3 class="user-section__palette--heading">${project.name}</h3>
+    ${colorPalettes
+    .map(
+      paletteItem => paletteItem.project_id === project.id ? paletteMarkup(paletteItem) : null
+    ).join('')}
   </article>
   `;
 
@@ -100,10 +93,9 @@ const createMarkUpForProjectsWithPalettes = async () => {
 
   const sectionOption = title => `<option value=${title}>${title}</option>`;
 
-  projectListKeys.forEach((project, index) => {
-    const userPalette = projectList[project];
-    select.innerHTML += sectionOption(project);
-    paletteSection.innerHTML += markupForUserPalette(project, userPalette);
+  projects.forEach((project, index) => {
+    select.innerHTML += sectionOption(project.name);
+    paletteSection.innerHTML += markupForUserPalette(project);
   });
 };
 
@@ -120,6 +112,7 @@ const postNewProject = async event => {
   try {
     await fetch('api/v1/projects', options);
     projectTitle.value = '';
+    createMarkUpForProjectsWithPalettes();
   } catch (error) {
     return Error(`Error saving project: ${error}`);
   }

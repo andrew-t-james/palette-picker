@@ -9,6 +9,7 @@ exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTable('palettes', table => {
     table.increments('id').primary();
     table.string('name');
+    table.unique('name');
     table.string('color_1');
     table.string('color_2');
     table.string('color_3');
