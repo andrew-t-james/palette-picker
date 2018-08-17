@@ -42,7 +42,7 @@ describe('API Routes', () => {
   });
 
   describe('GET /api/v1/projects', () => {
-    it('should return an array of projects', done => {
+    it('Should return an array of projects', done => {
       chai.request(server)
         .get('/api/v1/projects')
         .end((err, res) => {
@@ -65,7 +65,7 @@ describe('API Routes', () => {
   });
 
   describe('GET /api/v1/palettes', () => {
-    it('should return an array of palettes', done => {
+    it('Should return an array of palettes', done => {
       chai.request(server)
         .get('/api/v1/palettes')
         .end((err, res) => {
@@ -123,7 +123,7 @@ describe('API Routes', () => {
   });
 
   describe('DELETE /api/v1/palettes', done => {
-    it('should delete a palette from the database', done => {
+    it('Should delete a palette from the database', done => {
       chai.request(server)
         .delete('/api/v1/palettes')
         .send({
@@ -138,7 +138,7 @@ describe('API Routes', () => {
         });
     });
 
-    it('return 422 if palette id does not exist', done => {
+    it('Should return 422 if palette id does not exist', done => {
       chai.request(server)
         .delete('/api/v1/palettes')
         .send({
@@ -153,6 +153,7 @@ describe('API Routes', () => {
         });
     });
   });
+
   describe('POST to /api/v1/palette', () => {
     it('Should create a new palette', () => chai.request(server)
       .post('/api/v1/palette')
@@ -172,7 +173,7 @@ describe('API Routes', () => {
         throw error;
       }));
 
-    it('return 422 if palette id does not exist', done => {
+    it('Should return 422 if palette id does not exist', done => {
       chai.request(server)
         .post('/api/v1/palette')
         .send({

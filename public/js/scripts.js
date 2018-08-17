@@ -34,11 +34,11 @@ const setRandomColorPallet = () => {
 };
 
 const lockColor = event => {
-  const lockButton = event.target;
-  const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
-  const locked = palette.colors.find((hex, index) => hex[`color_${index + 1}`] === hexCode);
-  locked.saved = !locked.saved;
   if (event.target.tagName === 'I') {
+    const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
+    const locked = palette.colors.find((hex, index) => hex[`color_${index + 1}`] === hexCode);
+    const lockButton = event.target;
+    locked.saved = !locked.saved;
     lockButton.classList.toggle('fa-lock-open');
   }
 };
@@ -129,6 +129,7 @@ const createPalette = async event => {
     }
     return newColor;
   }, {});
+
   const newPalette = {
     ...paletteColors,
     project_id: Number(id),
@@ -158,6 +159,8 @@ const createPalette = async event => {
   try {
     await fetch('/api/v1/palette', options);
     paletteTitle.value = '';
+    palette.colors.map(color => color.saved = false);
+    document.querySelectorAll('.fa-lock').forEach(lock => lock.classList.add('fa-lock-open'));
     createMarkUpForProjectsWithPalettes();
   } catch (error) {
     return Error(`Error saving project: ${error}`);
