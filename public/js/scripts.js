@@ -129,7 +129,7 @@
     const { id } = optionElement[optionElement.selectedIndex];
     const paletteColors = palette.colors.reduce((newColor, color, index) => {
       if (!newColor[color[`color_${index + 1}`]]) {
-        newColor[`color_${index+1}`] = color[`color_${index + 1}`];
+        newColor[`color_${index + 1}`] = color[`color_${index + 1}`];
       }
       return newColor;
     }, {});
