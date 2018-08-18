@@ -19,19 +19,20 @@ const palette = {
   ]
 };
 
-const setRandomColorPallet = () => {
+const setRandomColorPallet = event => {
   const getRandomHexColor = () => `#${Math.random().toString(16).slice(2, 8)}`;
   const colorBlockList = document.querySelectorAll('.color-blocks__block');
   const hexColorValue = document.querySelectorAll('.color-blocks__hex-color');
-  colorBlockList.forEach((block, index) => {
-    if (!palette.colors[index].saved) {
-      const newHexColor = getRandomHexColor();
-      palette.colors[index][`color_${index + 1}`] = newHexColor;
-      hexColorValue[index].innerText = newHexColor;
-      block.setAttribute('style', `--color-${index + 1}: ${newHexColor}`);
-    }
-  });
-  console.log(palette);
+  if (event.keyCode === 32) {
+    colorBlockList.forEach((block, index) => {
+      if (!palette.colors[index].saved) {
+        const newHexColor = getRandomHexColor();
+        palette.colors[index][`color_${index + 1}`] = newHexColor;
+        hexColorValue[index].innerText = newHexColor;
+        block.setAttribute('style', `--color-${index + 1}: ${newHexColor}`);
+      }
+    });
+  }
 };
 
 const lockColor = event => {
@@ -71,8 +72,8 @@ const createMarkUpForProjectsWithPalettes = async () => {
   clearAllChildNodes(select);
 
   const markupForUserPalette = project => `
-  <article class="user-section__palette">
-    <h3 class="user-section__palette--heading">${project.name}</h3>
+  <article class='user-section__palette'>
+    <h3 class='user-section__palette--heading'>${project.name}</h3>
     ${colorPalettes
     .map(
       paletteItem => paletteItem.project_id === project.id ? paletteMarkup(paletteItem) : null
@@ -81,14 +82,14 @@ const createMarkUpForProjectsWithPalettes = async () => {
   `;
 
   const paletteMarkup = newPalette => `
-  <div class="user-section__palette--colors" id="${newPalette.id}">
-      <h4 class="user-section__palette--title">${newPalette.name}</h4>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_2}"></div>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_3}"></div>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_4}"></div>
-      <div class="user-section__palette--colors-block" style="background: ${newPalette.color_5}"></div>
-      <i class="fas fa-trash-alt"></i>
+  <div class='user-section__palette--colors' id='${newPalette.id}'>
+      <h4 class='user-section__palette--title'>${newPalette.name}</h4>
+      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_2}'></div>
+      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_2}'></div>
+      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_3}'></div>
+      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_4}'></div>
+      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_5}'></div>
+      <i class='fas fa-trash-alt'></i>
     </div>
     `;
 
@@ -110,6 +111,7 @@ const postNewProject = async event => {
       'Content-Type': 'application/json'
     }
   };
+
   try {
     await fetch('api/v1/projects', options);
     projectTitle.value = '';
@@ -178,22 +180,25 @@ const deletePalette = async event => {
     }
   };
   if (event.target.tagName === 'I') {
-    await fetch('/api/v1/palettes', options);
-    createMarkUpForProjectsWithPalettes();
+    try {
+      await fetch('/api/v1/palettes', options);
+      createMarkUpForProjectsWithPalettes();
+    } catch (error) {
+      return Error(`Error saving project: ${error}`);
+    }
   }
 };
 
 const showErrorMessage = message => {
-  const snackBar = document.getElementById("snack-bar");
-
-  snackBar.className = "show";
+  const snackBar = document.getElementById('snack-bar');
+  snackBar.className = 'show';
   snackBar.innerText = message;
-  setTimeout(() => { snackBar.className = snackBar.className.replace("show", ""); }, 3000);
+  setTimeout(() => { snackBar.className = snackBar.className.replace('show', ''); }, 3000);
 };
 
 document.querySelector('.color-blocks').addEventListener('click', lockColor);
-document.querySelector('.controls-section__button').addEventListener('click', setRandomColorPallet);
 document.querySelector('.controls-section__from').addEventListener('submit', postNewProject);
 document.querySelector('.user-palettes').addEventListener('click', deletePalette);
 document.querySelector('.save-palette-button').addEventListener('click', createPalette);
+document.querySelector('body').addEventListener('keypress', setRandomColorPallet);
 createMarkUpForProjectsWithPalettes();

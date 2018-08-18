@@ -47,6 +47,26 @@ button {
   padding: 0;
 }
 
+.select-style {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0 auto;
+  width: 15rem;
+}
+
+select {
+  background: transparent;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 0.8rem;
+  width: 13rem;
+}
+
+.select-style select:focus {
+  outline: none;
+}
+
 .small-btn {
   background: var(--color-4);
   border: none;
@@ -55,7 +75,7 @@ button {
   color: var(--border-color);
   cursor: pointer;
   font-size: 1.3rem;
-  margin-bottom: 1.6rem;
+  margin-left: 1rem;
   outline: inherit;
   padding: 0;
   padding: 0.5rem 1rem;
@@ -118,7 +138,13 @@ button {
 * CONTROLS SECTION
 */
 .controls-section {
+  margin-bottom: 1.5rem;
   text-align: center;
+}
+
+.controls-section__header,
+.user-section__header--heading {
+  margin-bottom: 0.8rem;
 }
 
 .controls-section__button {
@@ -149,6 +175,17 @@ button {
   max-width: 906px;
 }
 
+.palette-form {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.palette-title {
+  width: 29rem;
+}
+
 /**
 * USER PALLETE
 */
@@ -164,7 +201,6 @@ button {
 }
 
 .user-palettes {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
