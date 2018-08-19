@@ -73,23 +73,48 @@
     clearAllChildNodes(select);
 
     const markupForUserPalette = project => `
-  <article class='user-section__palette'>
-    <h3 class='user-section__palette--heading'>${project.name}</h3>
-    ${colorPalettes
-    .map(
-      paletteItem => paletteItem.project_id === project.id ? paletteMarkup(paletteItem) : null
-    ).join('')}
-  </article>
+    <article class='user-section__palette'>
+      <h3 class='user-section__palette--heading'>${project.name}</h3>
+  ${colorPalettes
+    .map(paletteItem => paletteItem.project_id === project.id ? paletteMarkup(paletteItem) : null)
+    .join('')
+  }
+    </article>
   `;
 
     const paletteMarkup = newPalette => `
-  <div class='user-section__palette--colors' id='${newPalette.id}'>
+    <div class='user-section__palette--colors' id='${newPalette.id}'>
       <h4 class='user-section__palette--title'>${newPalette.name}</h4>
-      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_2}'></div>
-      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_2}'></div>
-      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_3}'></div>
-      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_4}'></div>
-      <div class='user-section__palette--colors-block' style='background: ${newPalette.color_5}'></div>
+      <div class='user-section__palette--colors-block'
+        id="${newPalette.id}"
+        title="${newPalette.color_1}"
+        style='background: ${newPalette.color_1}'
+       >
+      </div>
+      <div class='user-section__palette--colors-block'
+        id="${newPalette.id}"
+        title="${newPalette.color_2}"
+        style='background: ${newPalette.color_2}'
+       >
+      </div>
+      <div class='user-section__palette--colors-block'
+        id="${newPalette.id}"
+        title="${newPalette.color_3}"
+        style='background: ${newPalette.color_3}'
+       >
+      </div>
+      <div class='user-section__palette--colors-block'
+        id="${newPalette.id}"
+        title="${newPalette.color_4}
+        "style='background: ${newPalette.color_4}'
+       >
+      </div>
+      <div class='user-section__palette--colors-block'
+        id="${newPalette.id}"
+        title="${newPalette.color_5}
+        "style='background: ${newPalette.color_5}'
+       >
+      </div>
       <i class='fas fa-trash-alt'></i>
     </div>
     `;
@@ -197,10 +222,23 @@
     setTimeout(() => { snackBar.className = snackBar.className.replace('show', ''); }, 3000);
   };
 
+  const updateColorPalette = event =>  {
+    const colorBlocks = document.querySelector('.color-blocks');
+    const paletteBlockList = document.querySelectorAll('.user-section__palette--colors');
+    const filterPaletteList = Array.from(paletteBlockList).filter(palette => palette.id === event.target.parentNode.id);
+    const selectedPaletteColorsList = Array.from(filterPaletteList[0].children).slice(1, 6);
+
+    Array.from(colorBlocks.children).forEach((childNode, index) => {
+      childNode.style.background = selectedPaletteColorsList[index].title;
+      childNode.innerHTML = `<p class="color-blocks__hex-color">${selectedPaletteColorsList[index].title}</p>`;
+    });
+  };
+
   document.querySelector('.color-blocks').addEventListener('click', lockColor);
   document.querySelector('.controls-section__from').addEventListener('submit', postNewProject);
   document.querySelector('.user-palettes').addEventListener('click', deletePalette);
   document.querySelector('.save-palette-button').addEventListener('click', createPalette);
   document.querySelector('body').addEventListener('keypress', setRandomColorPallet);
+  document.querySelector('.user-section').addEventListener('click', updateColorPalette);
   createMarkUpForProjectsWithPalettes();
 })();
