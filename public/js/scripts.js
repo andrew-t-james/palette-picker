@@ -226,13 +226,16 @@
   const updateColorPalette = event =>  {
     const colorBlocks = document.querySelector('.color-blocks');
     const paletteBlockList = document.querySelectorAll('.user-section__palette--colors');
-    const filterPaletteList = Array.from(paletteBlockList).filter(palette => palette.id === event.target.parentNode.id);
-    const selectedPaletteColorsList = Array.from(filterPaletteList[0].children).slice(1, 6);
 
-    Array.from(colorBlocks.children).forEach((childNode, index) => {
-      childNode.style.background = selectedPaletteColorsList[index].title;
-      childNode.innerHTML = `<p class="color-blocks__hex-color">${selectedPaletteColorsList[index].title}</p>`;
-    });
+    if (event.target.classList.contains('user-section__palette--colors-block')) {
+      const filterPaletteList = Array.from(paletteBlockList).filter(palette => palette.id === event.target.parentNode.id);
+      const selectedPaletteColorsList = Array.from(filterPaletteList[0].children).slice(1, 6);
+
+      Array.from(colorBlocks.children).forEach((childNode, index) => {
+        childNode.style.background = selectedPaletteColorsList[index].title;
+        childNode.innerHTML = `<p class="color-blocks__hex-color">${selectedPaletteColorsList[index].title}</p>`;
+      });
+    }
   };
 
   document.querySelector('.color-blocks').addEventListener('click', lockColor);

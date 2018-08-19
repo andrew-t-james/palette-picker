@@ -6,7 +6,7 @@ const projects = [{
     color_2: '#1b263b',
     color_3: '#415a77',
     color_4: '#7b9e87',
-    color_5: '#7b9e87'
+    color_5: '#e0e1dd'
   }, {
     name: 'Light Colors',
     color_1: '#2E294E',
