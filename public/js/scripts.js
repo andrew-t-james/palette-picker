@@ -38,7 +38,8 @@
 
   const lockColor = event => {
     if (event.target.tagName === 'I') {
-      const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText;
+      const hexCode = event.target.parentNode.getElementsByTagName('P')[0].innerText.toLowerCase();
+      console.log(palette);
       const locked = palette.colors.find((hex, index) => hex[`color_${index + 1}`] === hexCode);
       const lockButton = event.target;
       locked.saved = !locked.saved;

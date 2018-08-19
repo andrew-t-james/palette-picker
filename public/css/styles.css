@@ -112,6 +112,7 @@ select {
   font-size: 1.9rem;
   padding-top: 1rem;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .fa-lock,
@@ -243,6 +244,7 @@ select {
 .user-section__palette--colors-block {
   border: 2px solid var(--border-color);
   border-radius: 50%;
+  cursor: pointer;
   height: 4rem;
   width: 4rem;
 }
