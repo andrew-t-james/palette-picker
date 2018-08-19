@@ -91,13 +91,17 @@ select {
   text-align: center;
 }
 
+.header__copy {
+  font-size: 1.6rem;
+}
+
 /**
 * COLOR BLOCK SECTION
 */
 .color-blocks {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   width: 100%;
 }
 
